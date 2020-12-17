@@ -13,5 +13,5 @@ RUN git clone https://github.com/mgossman71/playbook-centos-base.git
 WORKDIR /code/playbook-centos-base
 COPY ansible.go .
 RUN go build ansible.go
-ENTRYPOINT [ "./ansible" ] 
+# ENTRYPOINT [ "./ansible" ] 
 EXPOSE 8080
