@@ -13,6 +13,10 @@ func myhandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Hello there!!"))
 }
+func swapoff(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("swapoff"))
+}
 func setupMuxRouter() *mux.Router {
 	router := mux.NewRouter()
 	api := router.PathPrefix("/api/v1").Subrouter()
@@ -23,6 +27,7 @@ func setupMuxRouter() *mux.Router {
 		w.Write([]byte("pong"))
 	})
 	api.HandleFunc("/test", myhandler)
+	api.HandleFunc("swapoff", swapoff)
 	// apiGet.HandleFunc("/allns", getallns)
 	// apiGet.HandleFunc("/onens", getonens).Queries("name", "{name}")
 	return router
