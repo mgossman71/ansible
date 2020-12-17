@@ -15,9 +15,15 @@ func myhandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello there!!"))
 }
 func swapoff(w http.ResponseWriter, r *http.Request) {
-	cmd, _ := exec.Command("ansible", "-i", "inventory/hosts", "k8s", "-a", "swpapoff -a").Output()
+	cmd, _ := exec.Command("ansible", "-i", "./inventory/hosts.yaml", "k8s", "-a", "\"touch /foo.txt\"").Output()
+	// cmd, _ := exec.Command("ansible", "--version").Output()
+	// log.Printf("Trying to run Swapoff -a")
+
 	w.WriteHeader(http.StatusOK)
 	w.Write(cmd)
+}
+func test() {
+	fmt.Println("Test Function.")
 }
 func setupMuxRouter() *mux.Router {
 	router := mux.NewRouter()
@@ -35,11 +41,13 @@ func setupMuxRouter() *mux.Router {
 	return router
 }
 func main() {
+	// test()
+	// os.Stdout.WriteString("your message here\n")
+
 	muxRouter := setupMuxRouter()
 	loggedRouter := handlers.LoggingHandler(os.Stdout, muxRouter)
 	err := http.ListenAndServe(":8080", loggedRouter)
 	if err != nil {
 		fmt.Println(err)
 	}
-
 }
