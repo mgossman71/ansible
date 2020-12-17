@@ -27,7 +27,7 @@ func setupMuxRouter() *mux.Router {
 		w.Write([]byte("pong"))
 	})
 	api.HandleFunc("/test", myhandler)
-	api.HandleFunc("swapoff", swapoff)
+	api.HandleFunc("/swapoff", swapoff)
 	// apiGet.HandleFunc("/allns", getallns)
 	// apiGet.HandleFunc("/onens", getonens).Queries("name", "{name}")
 	return router
