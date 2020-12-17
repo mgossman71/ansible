@@ -15,7 +15,7 @@ func myhandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello there!!"))
 }
 func swapoff(w http.ResponseWriter, r *http.Request) {
-	cmd, _ := exec.Command("ansible", "-i", "inventory/hosts", "k8s", "-a", "swpapoff", "-a").Output()
+	cmd, _ := exec.Command("ansible", "-i", "inventory/hosts", "k8s", "-a", "swpapoff -a").Output()
 	w.WriteHeader(http.StatusOK)
 	w.Write(cmd)
 }
