@@ -1,6 +1,7 @@
 FROM alpine
 ENV PATH=$PATH:/code
 RUN mkdir /code
+RUN mkdir ~/.ssh && touch ~/.ssh && chmod -R 600 ~/.ssh 
 WORKDIR /code
 RUN apk add go && \
     apk add git && \
