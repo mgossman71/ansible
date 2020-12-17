@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"os/exec"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -14,8 +15,9 @@ func myhandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello there!!"))
 }
 func swapoff(w http.ResponseWriter, r *http.Request) {
+	cmd, _ := exec.Command("ansible", "-i", "inventory/hosts", "k8s", "-a", "swpapoff", "-a").Output()
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("swapoff"))
+	w.Write(cmd)
 }
 func setupMuxRouter() *mux.Router {
 	router := mux.NewRouter()
